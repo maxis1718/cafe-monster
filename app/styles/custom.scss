@@ -50,6 +50,10 @@ $input-padding-right: 0.5em;
         border-radius: 3px;
         margin-bottom: 0.3*$icon-height;
 
+        input {
+            padding-right: $icon-width*0.7;
+        }
+
         .key, .value, .aux {
 
             height: $icon-height;
@@ -68,6 +72,7 @@ $input-padding-right: 0.5em;
             color: #5385f7;
             right: 0;
             cursor: pointer;
+            background: none;
         }
         .value {
             position: relative;
@@ -211,6 +216,5 @@ input {
     width: 100%;
     letter-spacing: 0.5px;
     background: none;
-    // padding: 1px 5px;
 
 }

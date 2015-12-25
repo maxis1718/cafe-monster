@@ -59,7 +59,10 @@ var iconSet = {
     '大桌': 'fa-laptop',
     '訂位': 'fa-calendar-check-o',
     '安靜': 'fa-bell-slash-o',
-    '書架': 'fa-book'
+    '書架': 'fa-book',
+    '低消': 'fa-usd',
+    '吸菸': 'fa-magic',
+    '戶外座': 'fa-umbrella'
 };
 
 // e.g., homeys
@@ -78,9 +81,14 @@ CafeQuery.find().then(function(results){
     }
 }).then(function(result) {
 
-    // found the cafe, fetch all existing relations
+    // found the cafe
     cafe = result;
 
+    //try to update address and tel
+    $('#cafe-addr').val(cafe.get('address'));
+    $('#cafe-tel').val(cafe.get('tel'));
+
+    // fetch all existing relations
     relation = cafe.relation('infos');
 
     // console.log('found the cafe:', cafe);
@@ -119,8 +127,6 @@ CafeQuery.find().then(function(results){
             relation: relation
           }, clickHandler);
 
-        // insert icons
-        // if (icon) {
         $('<span/>').addClass('txt').text(tagName).appendTo(infoEle);
         $('<i/>').addClass('fa').addClass(icon).appendTo(infoEle);
             // infoEle.html()

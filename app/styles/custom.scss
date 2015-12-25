@@ -17,6 +17,13 @@ $theme: (
     r:  #F2572D
 );
 
+$tag: (
+    bg: #afb6bb,
+    bg-selected: #27384c,
+    fg: white,
+    fg-selected: white
+);
+
 $zIndex: (
     header: 5
 );
@@ -24,6 +31,8 @@ $zIndex: (
 $heights: (
     header: 56px
 );
+
+$effect: cubic-bezier(0.18, 0.89, 0.41, 1.18);
 
 $icon-width: 2.5em;
 $icon-height: 2.5em;
@@ -70,23 +79,76 @@ $input-padding-right: 0.5em;
 
 .tags-wrap {
     .tag {
-        width: 4.1em;
-        height: 4.1em;
-        background: #ddd;
-        box-shadow: 0 0 0 3px rgba(255,255,255,0.7) inset;
-        margin: 1em;
+
+        position: relative;
+
+        width: 64px;
+        height: 64px;
+        
         border-radius: 50%;
-        line-height: 4em;
-        text-align: center;
+        // line-height: 64px;
+        margin: 10px;
+
+        // font-size: 
+
+        // background: map-get($tag, 'bg');
+        // color: map-get($tag, 'fg');
+        color: #888;
+
+        // border: 1px dashed rgba(255,255,255,0.7);
+
+        // margin: 1px;
+
+        // box-shadow: 0 0 0 3px rgba(255,255,255,0.7) inset;
+        box-shadow: 1.5px 1.5px 3px 0px rgba(51, 51, 102, 0.24);
+
+        background: #fafafa;
+        border: 1px solid #eee;
+
+        // text-align: center;
         cursor: pointer;
-        transition: background-color .5s ease, border-color .5s ease, color .5s ease, opacity .5s ease;
+        transition: background-color .4s $effect,
+                    border-color .5s ease,
+                    box-shadow .8s ease, 
+                    color .3s cubic-bezier(0.4, 0, 1, 1),
+                    opacity .3s ease;
         display: inline-block;
-        &.selected {
-            color: #fff;
-            // background: #1ed760;
-            background: #5cb85c;
-            box-shadow: 0 0 0 3px rgba(255,255,255,0.7) inset;
+
+        .txt, i {
+            position: absolute;
+            width: 100%;
+            font-size: 12px;
+            // left: 20px;
+            text-align: center;
         }
+        .txt {
+            top: 36px;
+        }
+        i {
+            top: 14px;
+            font-size: 20px;
+        }
+
+        &.selected {
+            // color: #fff;
+            // background: map-get($tag, 'bg-selected');
+
+            background: #f0f0f0;
+            color: #F2572D;
+            // background: #1ed760;
+            // background: #5cb85c;
+            // box-shadow: 0 0 0 3px rgba(255,255,255,0.7) inset;
+            box-shadow: inset 2px 2px 2px 0.5px rgba(120, 120, 120, 0.4);
+            i {
+                padding-left: 1px;
+                padding-top: 1px;
+                font-size: 18.5px;
+            }
+            .txt {
+                font-size: 11.5px;
+            }
+        }
+
     }
 }
 
@@ -107,7 +169,7 @@ $input-padding-right: 0.5em;
 body {
     background: #fafafa;
     .container {
-        background: white;
+        background: #f8f8f8;
     }
 }
 
@@ -148,6 +210,7 @@ input {
 
     width: 100%;
     letter-spacing: 0.5px;
+    background: none;
     // padding: 1px 5px;
 
 }

@@ -31,7 +31,18 @@ var clickHandler = function (event) {
 
 var submitHandler = function (event) {
 
-    cafe.save();
+    $('.save-icons').find('.status').toggleClass('d-n');
+    cafe.save(null, {
+        success: function() {
+            // stop animation
+            $('.save-icons').find('.status').toggleClass('d-n');
+            console.log('save ok');
+        },
+        error: function () {
+            $('.save-icons').find('.status').toggleClass('d-n');
+            console.log('save failed');
+        }
+    });
     console.log(event.target);
     console.log('save the cafe', cafe.get('name'));
 };
@@ -79,6 +90,7 @@ CafeQuery.find().then(function(results){
 
     // create a tag element and attach the click event
     $('<div/>').addClass('tag')
+    .addClass('op-0')
     .text(infoObj.get('name'))
     .attr('id', infoObj.id)
     .appendTo(candidateContainer)
@@ -96,6 +108,9 @@ CafeQuery.find().then(function(results){
     infoObjs.forEach(function(infoObj){
         $('#' + infoObj.id).addClass('selected');
     });
+
+    $('.tag').removeClass('op-0');
+
 });
 
-$('.submit-btn').on('click', submitHandler);
+$('.save-btn').on('click', submitHandler);

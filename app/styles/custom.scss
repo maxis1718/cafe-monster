@@ -1,6 +1,12 @@
 .d-ib {
-    // display: inline-block;
+    display: inline-block;
     // float: left;
+}
+.d-n {
+    display: none;
+}
+.op-0 {
+    opacity: 0;
 }
 
 $theme: (
@@ -30,9 +36,9 @@ $input-padding-right: 0.5em;
     .info-wrap {
 
         position: relative;
-        border: 1px solid #ccc;
+        border: 2px solid #ddd;
         color: #7d7d7d;
-        border-radius: 2px;
+        border-radius: 3px;
         margin-bottom: 0.3*$icon-height;
 
         .key, .value, .aux {
@@ -62,8 +68,53 @@ $input-padding-right: 0.5em;
     }   
 }
 
-.row {
+.tags-wrap {
+    .tag {
+        width: 4.1em;
+        height: 4.1em;
+        background: #ddd;
+        box-shadow: 0 0 0 3px rgba(255,255,255,0.7) inset;
+        margin: 1em;
+        border-radius: 50%;
+        line-height: 4em;
+        text-align: center;
+        cursor: pointer;
+        transition: background-color .5s ease, border-color .5s ease, color .5s ease, opacity .5s ease;
+        display: inline-block;
+        &.selected {
+            color: #fff;
+            // background: #1ed760;
+            background: #5cb85c;
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.7) inset;
+        }
+    }
+}
 
+.save-wrap {
+    text-align: right;
+    .save-text {
+        letter-spacing: 0.5px;
+        padding-right: 0.5em;
+    }
+    .save-icons {
+        width: 1.5em;
+        .status {
+            width: 1.5em;
+        }
+    }
+}
+
+body {
+    background: #fafafa;
+    .container {
+        background: white;
+    }
+}
+
+.row {
+    &.info {
+        padding-bottom: 2em;
+    }
 }
 
 #header {
@@ -71,14 +122,15 @@ $input-padding-right: 0.5em;
     line-height: map-get($heights, 'header');
     font-size: 18px;
     color: white;
-    position: fixed;
     width: 100%;
     z-index: map-get($zIndex, 'header');
     background: map-get($theme, 'r');
     padding-left: 1em;
     box-shadow: 0px 1px 4px 2px rgba(170, 170, 170, 0.3);
+    position: relative;
 }
 #placeholder {
+    display: none;
     position: relative;
     top:0;
     height: map-get($heights, 'header');

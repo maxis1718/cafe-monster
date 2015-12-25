@@ -48,6 +48,20 @@ var submitHandler = function (event) {
 };
 
 
+// .html('<i class="fa fa-wifi"></i>')
+var iconSet = {
+    'wifi': 'fa-wifi',
+    '插座': 'fa-plug',
+    '限時': 'fa-hourglass-half',
+    '刷卡': 'fa-credit-card',
+    '服務費': 'fa-money',
+    '捷運站': 'fa-subway',
+    '大桌': 'fa-laptop',
+    '訂位': 'fa-calendar-check-o',
+    '安靜': 'fa-bell-slash-o',
+    '書架': 'fa-book'
+};
+
 // e.g., homeys
 CafeQuery.equalTo('name', $('#cafe-name').val());
 
@@ -85,19 +99,32 @@ CafeQuery.find().then(function(results){
 }).then(function(infoObjs){
 
     // relation = cafe.relation('infos');
+    var tagName, icon;
 
     infoObjs.forEach(function(infoObj){
 
-    // create a tag element and attach the click event
-    $('<div/>').addClass('tag')
-    .addClass('op-0')
-    .text(infoObj.get('name'))
-    .attr('id', infoObj.id)
-    .appendTo(candidateContainer)
-    .on('click', {
-        info: infoObj,
-        relation: relation
-      }, clickHandler);
+        // if (infoObj in )
+
+        tagName = infoObj.get('name');
+
+        icon = iconSet[tagName];
+
+        // create a tag element and attach the click event
+        var infoEle = $('<div/>').addClass('tag')
+        .addClass('op-0')
+        .attr('id', infoObj.id)
+        .appendTo(candidateContainer)
+        .on('click', {
+            info: infoObj,
+            relation: relation
+          }, clickHandler);
+
+        // insert icons
+        // if (icon) {
+        $('<span/>').addClass('txt').text(tagName).appendTo(infoEle);
+        $('<i/>').addClass('fa').addClass(icon).appendTo(infoEle);
+            // infoEle.html()
+        // }
   });
 
   return relation.query().find();

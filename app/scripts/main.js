@@ -1,14 +1,19 @@
-Parse.initialize("wTYRjN5abTd2I2BgdaBbbWupwB9Slv0fgd6SauW3", "O8cF0dYOlwfce6uVLzEXlKfhp1SEhyVxJiPsma8K");
+/* global $,Parse */
+/* eslint unused:false */
+
+'use strict';
+
+Parse.initialize('wTYRjN5abTd2I2BgdaBbbWupwB9Slv0fgd6SauW3', 'O8cF0dYOlwfce6uVLzEXlKfhp1SEhyVxJiPsma8K');
 
 var cafe;
 var relation;
 
 var candidateContainer = $('.tags-wrap');
 
-var Cafe = Parse.Object.extend("Cafe");
+var Cafe = Parse.Object.extend('Cafe');
 var CafeQuery = new Parse.Query(Cafe);
 
-var Info = Parse.Object.extend("Info");
+var Info = Parse.Object.extend('Info');
 var InfoQuery = new Parse.Query(Info);
 
 var clickHandler = function (event) {
@@ -18,7 +23,6 @@ var clickHandler = function (event) {
     if (isToRemove) {
         console.log('remove', event.data.info);
         event.data.relation.remove(event.data.info);
-    // 
     } else {
         console.log('add', event.data.info);
         event.data.relation.add(event.data.info);
@@ -26,7 +30,9 @@ var clickHandler = function (event) {
 };
 
 var submitHandler = function (event) {
+
     cafe.save();
+    console.log(event.target);
     console.log('save the cafe', cafe.get('name'));
 };
 
@@ -50,8 +56,7 @@ CafeQuery.find().then(function(results){
     // found the cafe, fetch all existing relations
     cafe = result;
 
-    relation = cafe.relation('infos')
-
+    relation = cafe.relation('infos');
 
     // console.log('found the cafe:', cafe);
     return InfoQuery.find();
@@ -89,7 +94,7 @@ CafeQuery.find().then(function(results){
 
     // filter out existing tags, and make them "selected"
     infoObjs.forEach(function(infoObj){
-        $('#'+infoObj.id).addClass('selected');
+        $('#' + infoObj.id).addClass('selected');
     });
 });
 

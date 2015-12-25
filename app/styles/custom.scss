@@ -21,7 +21,9 @@ $tag: (
     bg: #afb6bb,
     bg-selected: #27384c,
     fg: white,
-    fg-selected: white
+    fg-selected: white,
+    width: 64px,
+    height: 64px
 );
 
 $zIndex: (
@@ -51,6 +53,7 @@ $input-padding-right: 0.5em;
         margin-bottom: 0.3*$icon-height;
 
         input {
+            width: 100%;
             padding-right: $icon-width*0.7;
         }
 
@@ -84,27 +87,12 @@ $input-padding-right: 0.5em;
 
 .tags-wrap {
     .tag {
-
         position: relative;
-
-        width: 64px;
-        height: 64px;
-        
+        width: map-get($tag, 'width');
+        height: map-get($tag, 'height');
         border-radius: 50%;
-        // line-height: 64px;
         margin: 10px;
-
-        // font-size: 
-
-        // background: map-get($tag, 'bg');
-        // color: map-get($tag, 'fg');
         color: #888;
-
-        // border: 1px dashed rgba(255,255,255,0.7);
-
-        // margin: 1px;
-
-        // box-shadow: 0 0 0 3px rgba(255,255,255,0.7) inset;
         box-shadow: 1.5px 1.5px 3px 0px rgba(51, 51, 102, 0.24);
 
         background: #fafafa;
@@ -123,7 +111,6 @@ $input-padding-right: 0.5em;
             position: absolute;
             width: 100%;
             font-size: 12px;
-            // left: 20px;
             text-align: center;
         }
         .txt {
@@ -135,14 +122,8 @@ $input-padding-right: 0.5em;
         }
 
         &.selected {
-            // color: #fff;
-            // background: map-get($tag, 'bg-selected');
-
             background: #f0f0f0;
             color: #F2572D;
-            // background: #1ed760;
-            // background: #5cb85c;
-            // box-shadow: 0 0 0 3px rgba(255,255,255,0.7) inset;
             box-shadow: inset 2px 2px 2px 0.5px rgba(120, 120, 120, 0.4);
             i {
                 padding-left: 1px;
@@ -206,15 +187,12 @@ body {
     margin-top: 32px;
 }
 
+// reset input
 input {
-    // reset
     margin: 0;
     border: 0;
     outline: 0;
     padding: 0;
-
-    width: 100%;
     letter-spacing: 0.5px;
     background: none;
-
 }

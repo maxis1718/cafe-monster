@@ -3,6 +3,24 @@
 
 'use strict';
 
+/* static */
+var iconSet = {
+    'wifi': 'fa-wifi',
+    '插座': 'fa-plug',
+    '限時': 'fa-hourglass-half',
+    '刷卡': 'fa-credit-card',
+    '服務費': 'fa-money',
+    '捷運站': 'fa-subway',
+    '大桌': 'fa-laptop',
+    '訂位': 'fa-calendar-check-o',
+    '安靜': 'fa-bell-slash-o',
+    '書架': 'fa-book',
+    '低消': 'fa-usd',
+    '吸菸': 'fa-magic',
+    '戶外座': 'fa-umbrella'
+};
+
+/* Parse */
 Parse.initialize('wTYRjN5abTd2I2BgdaBbbWupwB9Slv0fgd6SauW3', 'O8cF0dYOlwfce6uVLzEXlKfhp1SEhyVxJiPsma8K');
 
 var cafe;
@@ -48,23 +66,6 @@ var submitHandler = function (event) {
 };
 
 
-// .html('<i class="fa fa-wifi"></i>')
-var iconSet = {
-    'wifi': 'fa-wifi',
-    '插座': 'fa-plug',
-    '限時': 'fa-hourglass-half',
-    '刷卡': 'fa-credit-card',
-    '服務費': 'fa-money',
-    '捷運站': 'fa-subway',
-    '大桌': 'fa-laptop',
-    '訂位': 'fa-calendar-check-o',
-    '安靜': 'fa-bell-slash-o',
-    '書架': 'fa-book',
-    '低消': 'fa-usd',
-    '吸菸': 'fa-magic',
-    '戶外座': 'fa-umbrella'
-};
-
 // e.g., homeys
 CafeQuery.equalTo('name', $('#cafe-name').val());
 
@@ -84,7 +85,7 @@ CafeQuery.find().then(function(results){
     // found the cafe
     cafe = result;
 
-    //try to update address and tel
+    //try to fetch address and tel
     $('#cafe-addr').val(cafe.get('address'));
     $('#cafe-tel').val(cafe.get('tel'));
 
@@ -98,6 +99,7 @@ CafeQuery.find().then(function(results){
 }, function(err) {
 
     console.log(err);
+
     // create a new Cafe object
     // ...
 
@@ -111,10 +113,9 @@ CafeQuery.find().then(function(results){
 
     infoObjs.forEach(function(infoObj){
 
-        // if (infoObj in )
-
         tagName = infoObj.get('name');
 
+        // try to get icon
         icon = iconSet[tagName];
 
         // create a tag element and attach the click event
@@ -129,8 +130,6 @@ CafeQuery.find().then(function(results){
 
         $('<span/>').addClass('txt').text(tagName).appendTo(infoEle);
         $('<i/>').addClass('fa').addClass(icon).appendTo(infoEle);
-            // infoEle.html()
-        // }
   });
 
   return relation.query().find();
@@ -146,4 +145,6 @@ CafeQuery.find().then(function(results){
 
 });
 
+// handle save
 $('.save-btn').on('click', submitHandler);
+

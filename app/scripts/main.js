@@ -20,12 +20,6 @@ var iconSet = {
     '戶外座': 'fa-umbrella'
 };
 
-/* Screen size related */
-$(document).ready(function(e){
-    // console.log('ready');
-    $('.tags-wrap')
-});
-
 /* Parse */
 Parse.initialize('wTYRjN5abTd2I2BgdaBbbWupwB9Slv0fgd6SauW3', 'O8cF0dYOlwfce6uVLzEXlKfhp1SEhyVxJiPsma8K');
 
@@ -146,24 +140,8 @@ CafeQuery.find().then(function(results){
     infoObjs.forEach(function(infoObj){
         $('#' + infoObj.id).addClass('selected');
     });
-
-    return Parse.Promise.as($('.tag'));
-
-}).then(function(tags){
-
-    // calculate the margin of tags
-    // var ITEMS_IN_A_ROW = 3;
-
-
-    
-    // document.querySelector('.tags-wrap').offsetWidth
-    // document.querySelector('.tag').offsetWidth
-
-    // adjust tag size
-    tags.removeClass('op-0');
-    // console.log();
+    $('.tag').removeClass('op-0');
 });
 
 // handle save
 $('.save-btn').on('click', submitHandler);
-

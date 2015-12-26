@@ -20,6 +20,12 @@ var iconSet = {
     '戶外座': 'fa-umbrella'
 };
 
+/* Screen size related */
+$(document).ready(function(e){
+    // console.log('ready');
+    $('.tags-wrap')
+});
+
 /* Parse */
 Parse.initialize('wTYRjN5abTd2I2BgdaBbbWupwB9Slv0fgd6SauW3', 'O8cF0dYOlwfce6uVLzEXlKfhp1SEhyVxJiPsma8K');
 
@@ -129,7 +135,7 @@ CafeQuery.find().then(function(results){
           }, clickHandler);
 
         $('<span/>').addClass('txt').text(tagName).appendTo(infoEle);
-        $('<i/>').addClass('fa').addClass(icon).appendTo(infoEle);
+        $('<i/>').addClass('icon fa').addClass(icon).appendTo(infoEle);
   });
 
   return relation.query().find();
@@ -141,8 +147,21 @@ CafeQuery.find().then(function(results){
         $('#' + infoObj.id).addClass('selected');
     });
 
-    $('.tag').removeClass('op-0');
+    return Parse.Promise.as($('.tag'));
 
+}).then(function(tags){
+
+    // calculate the margin of tags
+    // var ITEMS_IN_A_ROW = 3;
+
+
+    
+    // document.querySelector('.tags-wrap').offsetWidth
+    // document.querySelector('.tag').offsetWidth
+
+    // adjust tag size
+    tags.removeClass('op-0');
+    // console.log();
 });
 
 // handle save

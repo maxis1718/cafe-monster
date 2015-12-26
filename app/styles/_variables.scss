@@ -1,0 +1,58 @@
+// body-bg: body bg color
+// container-bg: container bg color
+$colors: (
+
+    body-bg: #ededeb,
+    container-bg: #ededeb,
+
+    header-bg: #8BA892,
+    header-fg: white,
+
+    icon-bg: #E3BB88,
+    icon-fg: #B1695A,
+
+    tag-bg: #fafafa,
+    tag-bg-active: #f0f0f0,
+    tag-fg: #888,
+    tag-fg-active: #B1695A,
+
+    g:  #00893A,
+    db: #0067A6,
+    b:  #00ABD8,
+    y:  #EFC028,
+    r:  #F2572D
+);
+
+$colors-bright: (
+    g:  #00893A,
+    db: #0067A6,
+    b:  #00ABD8,
+    y:  #EFC028,
+    r:  #F2572D
+);
+
+$tag: (
+    bg: #afb6bb,
+    bg-selected: #27384c,
+    fg: white,
+    fg-selected: white,
+    width: 72px,
+    height: 72px
+);
+
+$zIndex: (
+    header: 5
+);
+
+$heights: (
+    header: 72px
+);
+
+$effect: cubic-bezier(0.18, 0.89, 0.41, 1.18);
+
+$icon-width: 3em;
+$icon-height: 3em;
+
+$input-padding-left: 0.5em;
+$input-padding-right: 0.5em;
+

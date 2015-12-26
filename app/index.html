@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
     <title>cafe monster</title>
 
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -16,8 +17,10 @@
     <!-- endbuild -->
 
     <!-- build:css styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/custom.css">
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/custom.css" />
+    <link rel="stylesheet" href="styles/layout.css" />
+    <link rel="stylesheet" href="styles/atomic.css" />
     <!-- endbuild -->
     
     <!-- build:js scripts/vendor/modernizr.js -->
@@ -32,7 +35,8 @@
     <div class="container">
 
         <div id="header">
-            <div>Cafe x Taipei</div>
+            <!-- <i class="fa fa-bars d-ib"></i> -->
+            <div class="d-ib">Cafe x Taipei</div>
         </div>
 
         <div id="placeholder"></div>
@@ -41,19 +45,16 @@
             <div class="row info">
                 <div class="info-container">
                     <div class="info-wrap">
-                        <div class="key"><i class="fa fa-coffee"></i></div>
+                        <div class="key info-label"><i class="fa fa-coffee"></i></div>
                         <div class="value"><input id="cafe-name" value="homeys" /></div>
-                        <div class="aux"></div>
                     </div>
                     <div class="info-wrap">
-                        <div class="key"><i class="fa fa-home"></i></div>
+                        <div class="key info-label"><i class="fa fa-map-marker"></i></i></div>
                         <div class="value"><input id="cafe-addr" value="" /></div>
-                        <div class="aux"><i class="fa fa-map-marker"></i></div>
                     </div>
                     <div class="info-wrap">
-                        <div class="key"><i class="fa fa-phone"></i></div>
+                        <div class="key info-label"><i class="fa fa-phone"></i></div>
                         <div class="value"><input id="cafe-tel" value="" /></div>
-                        <div class="aux"></div>
                     </div>
                 </div>
 

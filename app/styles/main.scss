@@ -5,7 +5,9 @@ $icon-font-path: '../fonts/';
 @import "bower_components/components-font-awesome/scss/font-awesome.scss";
 // endbower
 
-@import url(https://fonts.googleapis.com/css?family=Ubuntu:300);
+@import url(https://fonts.googleapis.com/css?family=Ubuntu:400,300);
+
+@import 'variables';
 
 .browserupgrade {
     margin: 0.2em 0;

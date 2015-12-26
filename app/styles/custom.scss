@@ -1,60 +1,46 @@
-.d-ib {
-    display: inline-block;
-    // float: left;
-}
-.d-n {
-    display: none;
-}
-.op-0 {
-    opacity: 0;
+
+@import 'variables';
+
+.btn {
+    font-size: 16px;
+    padding: 8px 12px;
 }
 
-$theme: (
-    g:  #00893A,
-    db: #0067A6,
-    b:  #00ABD8,
-    y:  #EFC028,
-    r:  #F2572D
-);
-
-$tag: (
-    bg: #afb6bb,
-    bg-selected: #27384c,
-    fg: white,
-    fg-selected: white,
-    width: 72px,
-    height: 72px
-);
-
-$zIndex: (
-    header: 5
-);
-
-$heights: (
-    header: 56px
-);
-
-$effect: cubic-bezier(0.18, 0.89, 0.41, 1.18);
-
-$icon-width: 2.5em;
-$icon-height: 2.5em;
-$input-padding-left: 0.5em;
-$input-padding-right: 0.5em;
-
+.info-label {
+    color: map-get($colors, 'icon-fg');
+    background: map-get($colors, 'icon-bg');
+}
 
 .info-container {
+
+    font-size: 16px;
 
     .info-wrap {
 
         position: relative;
-        border: 2px solid #ddd;
+
+        border: 2px solid map-get($colors, 'icon-bg');
+        // background-color: map-get($colors, 'icon-bg');
         color: #7d7d7d;
+
         border-radius: 3px;
         margin-bottom: 0.3*$icon-height;
 
         input {
             width: 100%;
             padding-right: $icon-width*0.7;
+            // background: white;
+
+            // line-height: 40px;
+            line-height: 1;
+            height: 40px;
+
+            -webkit-appearance: none;
+            border-radius: 0;
+            // vertical-align: baseline;
+            padding-left: $input-padding-left;
+            padding-right: $input-padding-right + $icon-width;
+            // padding-bottom: 4px;
         }
 
         .key, .value, .aux {
@@ -69,7 +55,9 @@ $input-padding-right: 0.5em;
             text-align: center;
         }
         .key {
-            background: #d6d6d6;
+            i {
+                font-size: 1.2em;
+            }
         }
         .aux {
             color: #5385f7;
@@ -79,25 +67,28 @@ $input-padding-right: 0.5em;
         }
         .value {
             position: relative;
-            padding-left: $icon-width + $input-padding-left;
-            padding-right: $input-padding-right;
+            padding-left: $icon-width;
+            padding-right: 0;
         }
     }   
 }
 
 .tags-wrap {
+    position: relative;
+    text-align: center;
+
     .tag {
         position: relative;
         width: map-get($tag, 'width');
         height: map-get($tag, 'height');
         border-radius: 50%;
-        margin-left: 5%;
+        margin-left: 3%;
         margin-right: 3%;
         margin-bottom: 5%;
-        color: #888;
+        color: map-get($colors, 'tag-fg');;
         box-shadow: 1.5px 1.5px 3px 0px rgba(51, 51, 102, 0.24);
 
-        background: #fafafa;
+        background: map-get($colors, 'tag-bg');;
         border: 1px solid #eee;
 
         // text-align: center;
@@ -109,8 +100,9 @@ $input-padding-right: 0.5em;
                     opacity .3s ease;
         display: inline-block;
 
-        .txt, i {
+        .txt, .icon {
             position: absolute;
+            left: 0;
             width: 100%;
             font-size: 12px;
             text-align: center;
@@ -118,16 +110,16 @@ $input-padding-right: 0.5em;
         .txt {
             top: 36px;
         }
-        i {
+        .icon {
             top: 14px;
             font-size: 20px;
         }
 
         &.selected {
-            background: #f0f0f0;
-            color: #F2572D;
+            background: map-get($colors, 'tag-bg-active');
+            color: map-get($colors, 'tag-fg-active');
             box-shadow: inset 2px 2px 2px 0.5px rgba(120, 120, 120, 0.4);
-            i {
+            .icon {
                 padding-left: 1px;
                 padding-top: 1px;
                 font-size: 18.5px;
@@ -154,47 +146,4 @@ $input-padding-right: 0.5em;
     }
 }
 
-body {
-    background: #fafafa;
-    .container {
-        background: #f8f8f8;
-    }
-}
 
-.row {
-    &.info {
-        padding-bottom: 2em;
-    }
-}
-
-#header {
-    height: map-get($heights, 'header');
-    line-height: map-get($heights, 'header');
-    font-size: 18px;
-    color: white;
-    width: 100%;
-    z-index: map-get($zIndex, 'header');
-    background: map-get($theme, 'r');
-    padding-left: 1em;
-    box-shadow: 0px 1px 4px 2px rgba(170, 170, 170, 0.3);
-    position: relative;
-}
-#placeholder {
-    display: none;
-    position: relative;
-    top:0;
-    height: map-get($heights, 'header');
-}
-#wrap {
-    margin-top: 32px;
-}
-
-// reset input
-input {
-    margin: 0;
-    border: 0;
-    outline: 0;
-    padding: 0;
-    letter-spacing: 0.5px;
-    background: none;
-}

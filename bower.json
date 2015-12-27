@@ -5,7 +5,8 @@
     "bootstrap-sass": "~3.3.5",
     "modernizr": "~2.8.1",
     "parse": "~1.6.12",
-    "components-font-awesome": "~4.5.0"
+    "components-font-awesome": "~4.5.0",
+    "fastclick": "~1.0.6"
   },
   "overrides": {
     "bootstrap-sass": {

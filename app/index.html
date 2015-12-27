@@ -37,6 +37,7 @@
         <div id="header">
             <!-- <i class="fa fa-bars d-ib"></i> -->
             <div class="d-ib">Cafe x Taipei</div>
+            <div class="add-btn"><i class="fa fa-plus-circle"></i></div>
         </div>
 
         <div id="placeholder"></div>
@@ -46,7 +47,11 @@
                 <div class="info-container">
                     <div class="info-wrap">
                         <div class="key info-label"><i class="fa fa-coffee"></i></div>
-                        <div class="value"><input id="cafe-name" value="homeys" /></div>
+                        <div class="value"><input id="cafe-name" value="" /></div>
+                        <div class="aux search">
+                            <i class="fa fa-arrow-right"></i>
+                            <i class="fa fa-circle-o-notch fa-spin d-n"></i>
+                        </div>
                     </div>
                     <div class="info-wrap">
                         <div class="key info-label"><i class="fa fa-map-marker"></i></i></div>
@@ -66,7 +71,7 @@
 
         <div class="save-wrap">
             <a class="save-btn btn btn-success" href="#">
-                <span class="save-text d-ib">更新</span><span class="save-icons d-ib">
+                <span class="save-text d-ib">save</span><span class="save-icons d-ib">
                     <i class="fa fa-arrow-circle-o-right status"></i>
                     <i class="fa fa-circle-o-notch fa-spin status d-n"></i>
                 </span>
@@ -89,6 +94,7 @@
     <!-- bower:js -->
     <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/parse/parse.min.js"></script>
+    <script src="/bower_components/fastclick/lib/fastclick.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
     

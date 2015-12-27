@@ -16,6 +16,10 @@ $icon-font-path: '../fonts/';
     padding: 0.2em 0;
 }
 // reset
+html {
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+}
 html,
 body {
     clear: both;

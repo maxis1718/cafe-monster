@@ -25,6 +25,7 @@ Parse.initialize('wTYRjN5abTd2I2BgdaBbbWupwB9Slv0fgd6SauW3', 'O8cF0dYOlwfce6uVLz
 
 var cafe;
 var relation;
+var isNewCafe = false;
 
 var candidateContainer = $('.tags-wrap');
 
@@ -47,9 +48,132 @@ var clickHandler = function (event) {
     }
 };
 
+var clearContent = function (event) {
+
+    if(event.data && event.data.clearAll) {
+        $('#cafe-name').val('').focus();
+    }
+
+    // clear current content
+    $('.tags-wrap').html('');
+    // clear form
+    $('#cafe-addr').val('');
+    $('#cafe-tel').val('');
+};
+
+var searchHandler = function (event) {
+
+    // clear current content
+    clearContent(event);
+
+    // start spinner
+    var targetIcons = $('.search').find('i');
+    targetIcons.toggleClass('d-n');
+
+
+
+    // get cafe name
+    CafeQuery.equalTo('name', $('#cafe-name').val());
+
+    CafeQuery.find().then(function(results){
+        targetIcons.toggleClass('d-n');
+        if (results.length) {
+
+            console.log(results[0].get('name'));
+            console.log(results[0].get('address'));
+            console.log(results[0].get('tel'));
+
+            return Parse.Promise.as(results[0]);
+        } else {
+            return Parse.Promise.error('this is a new cafe');
+        }
+    }).then(function(result) {
+
+        // found the cafe
+        cafe = result;
+
+        //try to fetch address and tel
+        $('#cafe-addr').val(cafe.get('address'));
+        $('#cafe-tel').val(cafe.get('tel'));
+
+        // fetch all existing relations
+        relation = cafe.relation('infos');
+
+        isNewCafe = false;
+
+        // console.log('found the cafe:', cafe);
+        return InfoQuery.find();
+
+    // this is a new cafe, create a new cafe object
+    }, function(err) {
+
+        console.log(err);
+
+        // create a new Cafe object
+        cafe = new Parse.Object('Cafe');
+
+        relation = cafe.relation('infos');
+
+        isNewCafe = true;
+
+        // and fetch all existing relations
+        return InfoQuery.find();
+
+    }).then(function(infoObjs){
+
+        console.log('infoObjs');
+
+        var tagName, icon;
+
+        infoObjs.forEach(function(infoObj){
+
+            tagName = infoObj.get('name');
+
+            // try to get icon
+            icon = iconSet[tagName];
+
+            // create a tag element and attach the click event
+            var infoEle = $('<div/>').addClass('tag')
+            .addClass('op-0')
+            .attr('id', infoObj.id)
+            .appendTo(candidateContainer)
+            .on('click', {
+                info: infoObj,
+                relation: relation
+              }, clickHandler);
+
+            $('<span/>').addClass('txt').text(tagName).appendTo(infoEle);
+            $('<i/>').addClass('icon fa').addClass(icon).appendTo(infoEle);
+        });
+
+        if (isNewCafe) {
+            return Parse.Promise.as([]);
+        } else {
+            return relation.query().find();
+        }
+
+    }).then(function(infoObjs){
+
+        console.log('final');
+
+        // filter out existing tags, and make them "selected"
+        infoObjs.forEach(function(infoObj){
+            $('#' + infoObj.id).addClass('selected');
+        });
+        $('.tag').removeClass('op-0');
+    });
+};
+
 var submitHandler = function (event) {
 
     $('.save-icons').find('.status').toggleClass('d-n');
+
+    // set address and tel
+    cafe.set('name', $('#cafe-name').val());
+    cafe.set('address', $('#cafe-addr').val());
+    cafe.set('tel', $('#cafe-tel').val());
+
+    // save
     cafe.save(null, {
         success: function() {
             // stop animation
@@ -65,83 +189,14 @@ var submitHandler = function (event) {
     console.log('save the cafe', cafe.get('name'));
 };
 
-
-// e.g., homeys
-CafeQuery.equalTo('name', $('#cafe-name').val());
-
-CafeQuery.find().then(function(results){
-    if (results.length) {
-
-        console.log(results[0].get('name'));
-        console.log(results[0].get('address'));
-        console.log(results[0].get('tel'));
-
-        return Parse.Promise.as(results[0]);
-    } else {
-        return Parse.Promise.error('this is a new cafe');
-    }
-}).then(function(result) {
-
-    // found the cafe
-    cafe = result;
-
-    //try to fetch address and tel
-    $('#cafe-addr').val(cafe.get('address'));
-    $('#cafe-tel').val(cafe.get('tel'));
-
-    // fetch all existing relations
-    relation = cafe.relation('infos');
-
-    // console.log('found the cafe:', cafe);
-    return InfoQuery.find();
-
-// this is a new cafe, create a new cafe object
-}, function(err) {
-
-    console.log(err);
-
-    // create a new Cafe object
-    // ...
-
-    // and fetch all existing relations
-    return InfoQuery.find();
-
-}).then(function(infoObjs){
-
-    // relation = cafe.relation('infos');
-    var tagName, icon;
-
-    infoObjs.forEach(function(infoObj){
-
-        tagName = infoObj.get('name');
-
-        // try to get icon
-        icon = iconSet[tagName];
-
-        // create a tag element and attach the click event
-        var infoEle = $('<div/>').addClass('tag')
-        .addClass('op-0')
-        .attr('id', infoObj.id)
-        .appendTo(candidateContainer)
-        .on('click', {
-            info: infoObj,
-            relation: relation
-          }, clickHandler);
-
-        $('<span/>').addClass('txt').text(tagName).appendTo(infoEle);
-        $('<i/>').addClass('icon fa').addClass(icon).appendTo(infoEle);
-  });
-
-  return relation.query().find();
-
-}).then(function(infoObjs){
-
-    // filter out existing tags, and make them "selected"
-    infoObjs.forEach(function(infoObj){
-        $('#' + infoObj.id).addClass('selected');
-    });
-    $('.tag').removeClass('op-0');
-});
-
 // handle save
 $('.save-btn').on('click', submitHandler);
+
+// handle search
+$('.search').on('click', searchHandler);
+
+// handle clear all
+$('.add-btn').on('click', { clearAll: true }, clearContent);
+
+
+$(document).on('ready', { clearAll: true }, searchHandler);

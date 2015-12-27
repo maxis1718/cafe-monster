@@ -6,11 +6,6 @@
     padding: 8px 12px;
 }
 
-.info-label {
-    color: map-get($colors, 'icon-fg');
-    background: map-get($colors, 'icon-bg');
-}
-
 .info-container {
 
     font-size: 16px;
@@ -26,6 +21,22 @@
         border-radius: 3px;
         margin-bottom: 0.3*$icon-height;
 
+        transition: border-color 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+
+        &.active {
+            border: 2px solid #DEAE71;
+
+            .info-label {
+                background-color: #DEAE71;
+            }
+        }
+
+        .info-label {
+            transition: background-color .5s cubic-bezier(0.22, 0.61, 0.36, 1);
+            color: map-get($colors, 'icon-fg');
+            background-color: map-get($colors, 'icon-bg');
+        }
+
         input {
             width: 100%;
             padding-right: $icon-width*0.7;
@@ -33,7 +44,7 @@
 
             // line-height: 40px;
             line-height: 1;
-            height: 40px;
+            height: 100%;
 
             -webkit-appearance: none;
             border-radius: 0;
@@ -60,18 +71,25 @@
             }
         }
         .aux {
-            color: #5385f7;
+            color: #7d7d7d;
             right: 0;
             cursor: pointer;
             background: none;
+            transition: color .7s ease;
             i {
                 font-size: 1.2em;
+            }
+            &.active {
+                color: #5385f7;
             }
         }
         .value {
             position: relative;
             padding-left: $icon-width;
             padding-right: 0;
+            input {
+                padding-right: 3em;
+            }
         }
     }   
 }
@@ -79,6 +97,7 @@
 .tags-wrap {
     position: relative;
     text-align: center;
+    min-height: 320px;
 
     .tag {
         position: relative;
@@ -143,7 +162,7 @@
     font-size: 17px;
 
     width: 100%;
-    height: 3em;
+    height: 48px;
     text-align: right;
     box-shadow: 0px 0px 8px 1px rgba(68, 68, 68, 0.2);
     
@@ -162,14 +181,17 @@
         height: 100%;
         padding:0;
         border-radius: 0;
+
         .save-text {
             height: 100%;
-            line-height: 3em;
+            line-height: 48px;
             letter-spacing: 0.5px;
             padding-right: 0.5em;
+            font-size: 1.4em;
         }
         .save-icons {
             width: 1.5em;
+            font-size: 1.2em;
             .status {
                 width: 1.5em;
             }

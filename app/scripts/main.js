@@ -26,6 +26,7 @@ Parse.initialize('wTYRjN5abTd2I2BgdaBbbWupwB9Slv0fgd6SauW3', 'O8cF0dYOlwfce6uVLz
 var cafe;
 var relation;
 var isNewCafe = false;
+var position = {};
 
 var candidateContainer = $('.tags-wrap');
 
@@ -54,6 +55,10 @@ var clearContent = function (event) {
         $('#cafe-name').val('').focus();
     }
 
+    if($('geo').hasClass('active')) {
+        $('geo').removeClass('active');
+    }
+
     // clear current content
     $('.tags-wrap').html('');
     // clear form
@@ -63,14 +68,16 @@ var clearContent = function (event) {
 
 var searchHandler = function (event) {
 
+    if (event.data && event.data.keyup && event.keyCode !== 13) {
+        return;
+    }
+
     // clear current content
     clearContent(event);
 
     // start spinner
     var targetIcons = $('.search').find('i');
     targetIcons.toggleClass('d-n');
-
-
 
     // get cafe name
     CafeQuery.equalTo('name', $('#cafe-name').val());
@@ -83,11 +90,16 @@ var searchHandler = function (event) {
             console.log(results[0].get('address'));
             console.log(results[0].get('tel'));
 
+            if (results[0].get('geo')) {
+                $('.geo').addClass('active');
+            }
             return Parse.Promise.as(results[0]);
         } else {
             return Parse.Promise.error('this is a new cafe');
         }
     }).then(function(result) {
+
+        $('.search').addClass('active');
 
         // found the cafe
         cafe = result;
@@ -120,9 +132,6 @@ var searchHandler = function (event) {
         return InfoQuery.find();
 
     }).then(function(infoObjs){
-
-        console.log('infoObjs');
-
         var tagName, icon;
 
         infoObjs.forEach(function(infoObj){
@@ -153,15 +162,35 @@ var searchHandler = function (event) {
         }
 
     }).then(function(infoObjs){
-
-        console.log('final');
-
         // filter out existing tags, and make them "selected"
         infoObjs.forEach(function(infoObj){
             $('#' + infoObj.id).addClass('selected');
         });
         $('.tag').removeClass('op-0');
     });
+};
+
+
+function savePosition(pos) {
+    position.lat = pos.coords && pos.coords.latitude;
+    position.lon = pos.coords && pos.coords.longitude;
+    console.log('geolocation updated:', position);
+}
+
+var geoHandler = function () {
+    // start spinner
+    var targetIcons = $('.geo').find('i');
+    targetIcons.toggleClass('d-n');
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(pos){
+            targetIcons.toggleClass('d-n');
+            $('.geo').addClass('active');
+            savePosition(pos);
+        });
+    } else {
+        targetIcons.toggleClass('d-n');
+        console.log('Geolocation is not supported by this browser.');
+    }
 };
 
 var submitHandler = function (event) {
@@ -172,6 +201,15 @@ var submitHandler = function (event) {
     cafe.set('name', $('#cafe-name').val());
     cafe.set('address', $('#cafe-addr').val());
     cafe.set('tel', $('#cafe-tel').val());
+
+
+    if (position && position.lat && position.lon) {
+        var point = new Parse.GeoPoint({
+            latitude: parseFloat(position.lat),
+            longitude: parseFloat(position.lon)
+        });
+        cafe.set('geo', point);
+    }
 
     // save
     cafe.save(null, {
@@ -195,8 +233,19 @@ $('.save-btn').on('click', submitHandler);
 // handle search
 $('.search').on('click', searchHandler);
 
+$('.geo').on('click', geoHandler);
+
 // handle clear all
-$('.add-btn').on('click', { clearAll: true }, clearContent);
+$('.add-btn').on('click', { clearAll: true }, searchHandler);
+
+// focus event on input
+$('input').on('focus', function(){
+    $(this).parents('.info-wrap').toggleClass('active');
+}).on('blur', function(){
+    $(this).parents('.info-wrap').toggleClass('active');
+}).keyup({ keyup: true }, searchHandler);
 
 
-$(document).on('ready', { clearAll: true }, searchHandler);
+$(document).on('ready', { clearAll: true }, function(e){
+    searchHandler(e);
+});

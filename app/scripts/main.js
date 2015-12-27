@@ -80,7 +80,7 @@ var searchHandler = function (event) {
     targetIcons.toggleClass('d-n');
 
     // get cafe name
-    CafeQuery.equalTo('name', $('#cafe-name').val());
+    CafeQuery.equalTo('name', $('#cafe-name').val().toLowerCase());
 
     CafeQuery.find().then(function(results){
         targetIcons.toggleClass('d-n');

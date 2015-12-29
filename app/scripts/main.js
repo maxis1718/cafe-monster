@@ -35,7 +35,12 @@ function screenDivision(parts, margins) {
 Parse.initialize('wTYRjN5abTd2I2BgdaBbbWupwB9Slv0fgd6SauW3', 'O8cF0dYOlwfce6uVLzEXlKfhp1SEhyVxJiPsma8K');
 
 var tagMargin = 0;
-var tagPerRow = 3;
+var tagPerRow = 4;
+
+var tagIconHeight = 30;
+var tagTextHeight = 15;
+var tagTextPaddingTop = 3;
+var tagPaddingBottom = 5;
 
 var cafe;
 var relation;
@@ -169,7 +174,8 @@ var searchHandler = function (event) {
             .css({
                 width: tagSize,
                 height: tagSize,
-                margin: tagMargin
+                margin: tagMargin,
+                paddingTop: (tagSize - tagIconHeight - tagTextHeight - tagTextPaddingTop - tagPaddingBottom) / 2
             });
             $('<i/>').addClass('icon fa').addClass(icon).appendTo(infoEle);
             $('<span/>').addClass('txt').text(tagName).appendTo(infoEle);

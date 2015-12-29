@@ -128,12 +128,13 @@
         }
         .txt {
             text-transform: capitalize;
-            top: 9px;
+            display: inline-block;
+            padding-top: 3px;
         }
         .icon {
             padding: 1px;
             padding: 1px;
-            margin-top: 32px;
+            // margin-top: 32px;
             font-size: 30px;
             color: map-get($colors, 'tag-icon');
             transition: color .3s cubic-bezier(0.22, 0.61, 0.36, 1);

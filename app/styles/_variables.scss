@@ -1,5 +1,6 @@
 // body-bg: body bg color
 // container-bg: container bg color
+
 $colors: (
 
     body-bg: #ededeb,
@@ -11,10 +12,17 @@ $colors: (
     icon-bg: #E3BB88,
     icon-fg: #B1695A,
 
-    tag-bg: #F3F3F3,
-    tag-bg-active: #FDFCFA,
-    tag-fg: #888,
-    tag-fg-active: #B1695A,
+    tag-bg: #eee,
+    tag-bg-active: #f3f3f3,
+
+    tag-fg: #7d7d7d,
+    tag-fg-active: #624F4A,
+
+    tag-border-color: rgba(207, 194, 178, 0.19),
+    tag-border-color-active: rgba(207, 194, 178, 0.29),
+
+    tag-icon: #7d7d7d,
+    tag-icon-active: #B1695A,
 
     g:  #00893A,
     db: #0067A6,

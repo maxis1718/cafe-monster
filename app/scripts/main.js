@@ -20,8 +20,22 @@ var iconSet = {
     '戶外座': 'fa-umbrella'
 };
 
+/* Utils */
+function screenDivision(parts, margins) {
+    // get screen width
+    var width = screen.width;
+    if(margins) {
+        width = width - margins;
+    }
+    // calculate the width for each part
+    return width / parts;
+}
+
 /* Parse */
 Parse.initialize('wTYRjN5abTd2I2BgdaBbbWupwB9Slv0fgd6SauW3', 'O8cF0dYOlwfce6uVLzEXlKfhp1SEhyVxJiPsma8K');
+
+var tagMargin = 0;
+var tagPerRow = 3;
 
 var cafe;
 var relation;
@@ -133,6 +147,7 @@ var searchHandler = function (event) {
 
     }).then(function(infoObjs){
         var tagName, icon;
+        var tagSize = Math.floor(screenDivision(tagPerRow, tagMargin * tagPerRow * 2));
 
         infoObjs.forEach(function(infoObj){
 
@@ -149,7 +164,13 @@ var searchHandler = function (event) {
             .on('click', {
                 info: infoObj,
                 relation: relation
-              }, clickHandler);
+              }, clickHandler)
+            // adjust the width/height before showing tags
+            .css({
+                width: tagSize,
+                height: tagSize,
+                margin: tagMargin
+            });
 
             $('<span/>').addClass('txt').text(tagName).appendTo(infoEle);
             $('<i/>').addClass('icon fa').addClass(icon).appendTo(infoEle);
@@ -166,10 +187,10 @@ var searchHandler = function (event) {
         infoObjs.forEach(function(infoObj){
             $('#' + infoObj.id).addClass('selected');
         });
+
         $('.tag').removeClass('op-0');
     });
 };
-
 
 function savePosition(pos) {
     position.lat = pos.coords && pos.coords.latitude;

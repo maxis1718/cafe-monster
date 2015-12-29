@@ -9,6 +9,9 @@ body {
 }
 
 .row {
+	&.m-0 {
+		margin: 0;
+	}
     &.info {
         padding-bottom: 2em;
     }

@@ -120,18 +120,21 @@
         display: inline-block;
 
         .txt, .icon {
-            position: absolute;
+            position: relative;
             left: 0;
             width: 100%;
-            font-size: 14px;
+            font-size: 15px;
             text-align: center;
         }
         .txt {
-            top: 64px;
+            text-transform: capitalize;
+            top: 9px;
         }
         .icon {
-            top: 28px;
-            font-size: 26px;
+            padding: 1px;
+            padding: 1px;
+            margin-top: 32px;
+            font-size: 30px;
             color: map-get($colors, 'tag-icon');
             transition: color .3s cubic-bezier(0.22, 0.61, 0.36, 1);
         }
@@ -144,12 +147,13 @@
             // box-shadow: inset 2px 2px 2px 0.5px rgba(120, 120, 120, 0.4);
             .icon {
                 color: map-get($colors, 'tag-icon-active');
-                padding-left: 1px;
-                padding-top: 1px;
-                font-size: 25.5px;
+                padding: 0px;
+                padding: 0px;
+                font-size: 32px;
             }
             .txt {
-                font-size: 14px;
+                top: 8px;
+                font-size: 16px;
             }
         }
 

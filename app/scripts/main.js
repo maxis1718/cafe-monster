@@ -171,9 +171,8 @@ var searchHandler = function (event) {
                 height: tagSize,
                 margin: tagMargin
             });
-
-            $('<span/>').addClass('txt').text(tagName).appendTo(infoEle);
             $('<i/>').addClass('icon fa').addClass(icon).appendTo(infoEle);
+            $('<span/>').addClass('txt').text(tagName).appendTo(infoEle);
         });
 
         if (isNewCafe) {
